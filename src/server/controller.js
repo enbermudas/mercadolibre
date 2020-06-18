@@ -19,7 +19,7 @@ export default {
       let categories = [];
 
       if (data.results.length !== 0) {
-        data.results.map((item) => ({
+        items = data.results.map((item) => ({
           id: item.id,
           title: item.title,
           price: {
@@ -44,5 +44,15 @@ export default {
     } catch (error) {
       return res.status(500).send({ error: error.message });
     }
+  },
+
+  item: async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).send({
+        errors: errors.array()
+      });
+    }
+    return res.status(200).send({});
   }
 };
