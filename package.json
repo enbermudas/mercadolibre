@@ -25,6 +25,7 @@
     "@babel/core": "^7.10.2",
     "@babel/node": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "concurrently": "^5.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-prettier": "^3.1.4",
@@ -36,6 +37,7 @@
   "scripts": {
     "start:client": "react-scripts start",
     "start:server": "nodemon --exec babel-node src/server",
+    "dev": "concurrently --kill-others-on-fail \"yarn start:server\" \"yarn start:client\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -56,5 +58,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3333/"
 }
