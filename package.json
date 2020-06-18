@@ -59,5 +59,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3333/"
+  "proxy": "http://localhost:3333/",
+  "engines": {
+    "node": "12.x",
+    "yarn": "^1.6"
+  }
 }
