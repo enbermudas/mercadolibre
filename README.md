@@ -43,3 +43,7 @@ Running all tests at once and generate code coverage report.
 ```bash
 npm run test --watchAll --coverage # yarn test ---watchAll -coverage
 ```
+
+## Licensing
+
+[MIT](LICENSE)
