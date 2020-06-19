@@ -15,6 +15,11 @@ export default {
         params: { q: req.query.q }
       });
 
+      const author = {
+        name: 'Enrique',
+        lastname: 'Bermúdez'
+      };
+
       let items = [];
       let categories = [];
 
@@ -40,7 +45,7 @@ export default {
           .values[0].path_from_root.map((crumb) => crumb.name);
       }
 
-      return res.status(200).send({ items, categories });
+      return res.status(200).send({ author, items, categories });
     } catch (error) {
       return res.status(500).send({ error: error.message });
     }
@@ -70,8 +75,8 @@ export default {
 
       const item = {
         author: {
-          name: 'John',
-          lastname: 'Doe'
+          name: 'Enrique',
+          lastname: 'Bermúdez'
         },
         id,
         title,
