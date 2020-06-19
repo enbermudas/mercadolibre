@@ -30,6 +30,7 @@ it('Should succeed and return both items and categories as empty arrays', async 
   const res = await request.get('/api/v1/items').query({ q: 'a0a0a0a0a0a0a0a0a0' });
 
   expect(res.statusCode).toEqual(200);
+  expect(res.body.author).toEqual({ name: 'Enrique', lastname: 'Bermúdez' });
   expect(Array.isArray(res.body.items)).toBeTruthy();
   expect(Array.isArray(res.body.categories)).toBeTruthy();
   expect(res.body.items.length).toEqual(0);
@@ -41,6 +42,7 @@ it('Should succeed and return both items and categories as populated arrays', as
   const res = await request.get('/api/v1/items').query({ q: 'notebook' });
 
   expect(res.statusCode).toEqual(200);
+  expect(res.body.author).toEqual({ name: 'Enrique', lastname: 'Bermúdez' });
   expect(Array.isArray(res.body.items)).toBeTruthy();
   expect(Array.isArray(res.body.categories)).toBeTruthy();
   expect(res.body.items.length > 0).toBeTruthy;
@@ -65,6 +67,7 @@ it('Should succeed and return an item', async (done) => {
 
   const res = await request.get(`/api/v1/items/${id}`);
 
+  expect(res.body.author).toEqual({ name: 'Enrique', lastname: 'Bermúdez' });
   expect(res.statusCode).toEqual(200);
   expect(res.body.id === id).toBeTruthy();
   done();
