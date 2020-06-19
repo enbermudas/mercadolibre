@@ -1,13 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router, Redirect, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './App.scss';
+
+// views
+import Detail from './views/Detail';
+import List from './views/List';
 
 // components
-import Detail from './components/Detail';
-import List from './components/List';
+import NavBar from './components/NavBar';
 
 const App = () => {
   return (
     <Router>
+      <NavBar />
+
       <Switch>
         <Route exact path="/items">
           <List />
@@ -17,9 +23,9 @@ const App = () => {
           <Detail />
         </Route>
 
-        <Redirect from="/" to={{ pathname: '/items' }}>
+        <Route path="*">
           <List />
-        </Redirect>
+        </Route>
       </Switch>
     </Router>
   );
