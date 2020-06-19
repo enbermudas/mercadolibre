@@ -53,6 +53,45 @@ export default {
         errors: errors.array()
       });
     }
-    return res.status(200).send({});
+
+    try {
+      const itemResponse = await http.get(`/items/${req.params.id}`);
+      const descResponse = await http.get(`/items/${req.params.id}/description`);
+
+      const {
+        id,
+        title,
+        currency_id,
+        pictures,
+        condition,
+        shipping,
+        sold_quantity
+      } = itemResponse.data;
+
+      const item = {
+        author: {
+          name: 'John',
+          lastname: 'Doe'
+        },
+        id,
+        title,
+        price: {
+          currency: currency_id,
+          amount: 0,
+          decimals: 2
+        },
+        picture: pictures[0],
+        condition,
+        free_shipping: shipping.free_shipping,
+        sold_quantity,
+        description: descResponse.data.plain_text
+      };
+
+      return res.status(200).send(item);
+    } catch (error) {
+      return res
+        .status(error?.response?.data?.status || 500)
+        .send({ error: error.message });
+    }
   }
 };
