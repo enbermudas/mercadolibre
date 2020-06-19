@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { MeliProvider } from './store';
 import './App.scss';
 
 // views
@@ -10,24 +11,29 @@ import List from './views/List';
 import NavBar from './components/NavBar';
 
 const App = () => {
+  const [query, setQuery] = useState('');
+  const [list, setList] = useState({ categories: [], items: [] });
+
   return (
-    <Router>
-      <NavBar />
+    <MeliProvider value={{ query, setQuery, list, setList }}>
+      <Router>
+        <NavBar />
 
-      <Switch>
-        <Route exact path="/items">
-          <List />
-        </Route>
+        <Switch>
+          <Route exact path="/items">
+            <List />
+          </Route>
 
-        <Route path="/items/:id">
-          <Detail />
-        </Route>
+          <Route path="/items/:id">
+            <Detail />
+          </Route>
 
-        <Route path="*">
-          <List />
-        </Route>
-      </Switch>
-    </Router>
+          <Route path="*">
+            <List />
+          </Route>
+        </Switch>
+      </Router>
+    </MeliProvider>
   );
 };
 
