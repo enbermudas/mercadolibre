@@ -31,7 +31,7 @@ const Logo = styled.img.attrs({
   srcSet: Logo2XSrc
 })`
   height: 34px;
-  margin: 15px 0 0 15px;
+  margin: 15px 0 0 30px;
 `;
 
 const Input = styled.input.attrs({
@@ -62,7 +62,7 @@ const Button = styled.button.attrs({
   'data-testid': 'search-button'
 })`
   background-color: #eeeeee;
-  margin: 10px 15px 0 0;
+  margin: 10px 30px 0 0;
   border: none;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
