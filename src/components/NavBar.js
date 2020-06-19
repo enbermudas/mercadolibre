@@ -95,6 +95,12 @@ const Icon = styled.img.attrs({
 const NavBar = () => {
   const { query, setQuery, setList } = useContext(MeliContext);
 
+  const handleEnter = (e) => {
+    if (e.keyCode === 13) {
+      return handleSearch();
+    }
+  };
+
   const handleSearch = async () => {
     const { data } = await axios.get('/api/v1/items/', { params: { q: query } });
     setList(data);
@@ -105,7 +111,11 @@ const NavBar = () => {
       <Nav>
         <Logo />
 
-        <Input value={query} onChange={(e) => setQuery(e.target.value)} />
+        <Input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => handleEnter(e)}
+        />
 
         <Button onClick={() => handleSearch()}>
           <Icon />
