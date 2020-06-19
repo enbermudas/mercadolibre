@@ -9,5 +9,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/items', validator.items, controller.items);
+router.get('/items/:id', validator.item, controller.item);
 
 export default router;
