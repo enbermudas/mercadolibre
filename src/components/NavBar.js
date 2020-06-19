@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+import MeliContext from '../store';
+
+import LogoSrc from '../assets/Logo_ML.png';
+import Logo2XSrc from '../assets/Logo_ML@2x.png.png';
+import IconSrc from '../assets/ic_Search.png';
+import Icon2XSrc from '../assets/ic_Search@2x.png.png';
 
 const Header = styled.header.attrs({
+  'data-testid': 'header',
   role: 'banner'
 })`
   display: block;
@@ -17,15 +25,17 @@ const Nav = styled.div`
 `;
 
 const Logo = styled.img.attrs({
+  'data-testid': 'navbar-logo',
   alt: 'Logo MercadoLibre',
-  src: 'img/Logo_ML.png',
-  srcSet: 'img/Logo_ML@2x.png.png'
+  src: LogoSrc,
+  srcSet: Logo2XSrc
 })`
   height: 34px;
   margin: 15px 0 0 15px;
 `;
 
 const Input = styled.input.attrs({
+  'data-testid': 'search-input',
   type: 'text',
   placeholder: 'Nunca dejes de buscar'
 })`
@@ -48,7 +58,9 @@ const Input = styled.input.attrs({
   }
 `;
 
-const Button = styled.button.attrs({})`
+const Button = styled.button.attrs({
+  'data-testid': 'search-button'
+})`
   background-color: #eeeeee;
   margin: 10px 15px 0 0;
   border: none;
@@ -72,22 +84,30 @@ const Button = styled.button.attrs({})`
 `;
 
 const Icon = styled.img.attrs({
-  alt: 'Icono de Busqueda',
-  src: 'img/ic_Search.png',
-  srcSet: 'img/ic_Search@2x.png.png'
+  'data-testid': 'search-icon',
+  alt: 'Icono de Búsqueda',
+  src: IconSrc,
+  srcSet: Icon2XSrc
 })`
   width: 50%;
 `;
 
 const NavBar = () => {
+  const { query, setQuery, setList } = useContext(MeliContext);
+
+  const handleSearch = async () => {
+    const { data } = await axios.get('/api/v1/items/', { params: { q: query } });
+    setList(data);
+  };
+
   return (
     <Header>
       <Nav>
         <Logo />
 
-        <Input />
+        <Input value={query} onChange={(e) => setQuery(e.target.value)} />
 
-        <Button>
+        <Button onClick={() => handleSearch()}>
           <Icon />
         </Button>
       </Nav>
