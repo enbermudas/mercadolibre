@@ -9,8 +9,9 @@ import Detail from './views/Detail';
 import List from './views/List';
 
 // components
-import NavBar from './components/NavBar';
 import Categories from './components/Categories';
+import Loading from './components/Loading';
+import NavBar from './components/NavBar';
 
 const Main = styled.main.attrs({
   'data-testid': 'main',
@@ -29,15 +30,18 @@ const Main = styled.main.attrs({
 
 const App = () => {
   const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
   const [list, setList] = useState({ categories: [], items: [] });
   const { categories } = list;
 
   return (
-    <MeliProvider value={{ query, setQuery, list, setList }}>
+    <MeliProvider value={{ query, setQuery, list, setList, loading, setLoading }}>
       <Router>
         <NavBar />
 
         <Main>
+          {loading && <Loading />}
+
           {categories.length > 0 && <Categories />}
 
           <Switch>
