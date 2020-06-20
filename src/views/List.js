@@ -34,8 +34,29 @@ const Divider = styled.div`
   margin: 0 auto;
 `;
 
+const NoResults = styled.div`
+  width: auto;
+  text-align: center;
+`;
+
+const Heading = styled.h1.attrs({
+  'data-testid': 'no-results-heading',
+  role: 'heading'
+})`
+  color: #999999;
+  margin-bottom: 0;
+`;
+
+const SubHeading = styled.h2.attrs({
+  'data-testid': 'no-results-subheading',
+  role: 'subheading'
+})`
+  color: #999999;
+  margin: 0;
+`;
+
 const List = () => {
-  const { items } = useContext(MeliContext);
+  const { items, loading } = useContext(MeliContext);
   const lastIndex = items.length - 1;
 
   const itemsRenderer = (items, ref) => (
@@ -51,12 +72,19 @@ const List = () => {
     </React.Fragment>
   );
 
-  return (
+  return items.length ? (
     <InfiniteList
       itemCount={items.length}
       itemsRenderer={itemsRenderer}
       renderItem={renderItem}
     />
+  ) : (
+    !loading && (
+      <NoResults>
+        <Heading>Sin resultados...</Heading>
+        <SubHeading>¡Realiza una búsqueda!</SubHeading>
+      </NoResults>
+    )
   );
 };
 
