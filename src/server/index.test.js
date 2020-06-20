@@ -53,7 +53,7 @@ it('Should succeed and return both items and categories as populated arrays', as
 // Items (Detail)
 
 it('Should fail if the provided ID does not exists', async (done) => {
-  const res = await request.get('/api/v1/items/THISISWRONG');
+  const res = await request.get('/api/v1/items/a0a0a0a0a0a0a0a0a0');
 
   expect(res.statusCode).toEqual(404);
   expect(typeof res.body.error === 'string').toBeTruthy();
