@@ -16,10 +16,15 @@ const Main = styled.main.attrs({
   'data-testid': 'main',
   role: 'main'
 })`
-  width: 100%;
+  max-width: 1200px;
   height: auto;
   display: block;
   padding: 0 30px;
+  margin-bottom: 16px;
+
+  @media (min-width: 992px) {
+    padding: 0 60px;
+  }
 `;
 
 const App = () => {
