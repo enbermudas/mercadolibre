@@ -106,9 +106,9 @@ const NavBar = () => {
     setList({ categories: [], items: [] });
 
     const { data } = await axios.get('/api/v1/items/', { params: { q: query } });
-    setList(data);
 
     setLoading(false);
+    setList(data);
   };
 
   return (
