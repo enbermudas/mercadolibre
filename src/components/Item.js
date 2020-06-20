@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import MeliContext from '../store';
 
 import IcShipping from '../assets/ic_shipping.png';
 import IcShipping2x from '../assets/ic_shipping@2x.png.png';
@@ -83,10 +84,11 @@ const Shipping = styled.img.attrs({
 `;
 
 const Item = ({ data }) => {
-  const { address, free_shipping, picture, price, title } = data;
+  const { setId } = useContext(MeliContext);
+  const { address, free_shipping, id, picture, price, title } = data;
 
   return (
-    <ListItem>
+    <ListItem onClick={() => setId(id)}>
       <Picture src={picture} />
       <Content>
         <TopSection>
