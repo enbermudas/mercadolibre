@@ -57,6 +57,7 @@ const App = ({ history }) => {
       setLoading(true);
 
       async function fetchItem() {
+        setItem({});
         const { data } = await axios.get(`/api/v1/items/${id}`);
         setItem(data);
         setLoading(false);
@@ -96,9 +97,7 @@ const App = ({ history }) => {
             <List />
           </Route>
 
-          <Route path="/items/:id">
-            <Detail />
-          </Route>
+          <Route path="/items/:id">{Object.keys(item).length > 0 && <Detail />}</Route>
 
           <Route path="*">
             <List />
