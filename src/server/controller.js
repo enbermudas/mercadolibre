@@ -47,7 +47,9 @@ export default {
 
       return res.status(200).send({ author, items, categories });
     } catch (error) {
-      return res.status(500).send({ error: error.message });
+      return res
+        .status(error?.response?.data?.status || 500)
+        .send({ error: error.message });
     }
   },
 
