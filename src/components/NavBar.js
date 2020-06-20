@@ -93,7 +93,7 @@ const Icon = styled.img.attrs({
 `;
 
 const NavBar = () => {
-  const { query, setQuery, setList } = useContext(MeliContext);
+  const { query, setQuery, setList, setLoading } = useContext(MeliContext);
 
   const handleEnter = (e) => {
     if (e.keyCode === 13) {
@@ -102,8 +102,13 @@ const NavBar = () => {
   };
 
   const handleSearch = async () => {
+    setLoading(true);
+    setList({ categories: [], items: [] });
+
     const { data } = await axios.get('/api/v1/items/', { params: { q: query } });
     setList(data);
+
+    setLoading(false);
   };
 
   return (
