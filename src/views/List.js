@@ -12,7 +12,7 @@ const Section = styled.section.attrs({
   box-sizing: border-box;
   background: #ffffff;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 16px auto;
   display: flex;
   border-radius: 4px;
 `;

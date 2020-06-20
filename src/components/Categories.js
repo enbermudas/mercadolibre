@@ -4,7 +4,7 @@ import MeliContext from '../store';
 
 const List = styled.ol`
   max-width: 1200px;
-  padding: 16px 0;
+  padding-top: 16px;
   margin: 0 auto;
   list-style-type: none;
 `;
