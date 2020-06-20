@@ -35,8 +35,7 @@ const Divider = styled.div`
 `;
 
 const List = () => {
-  const { list } = useContext(MeliContext);
-  const { items } = list;
+  const { items } = useContext(MeliContext);
   const lastIndex = items.length - 1;
 
   const itemsRenderer = (items, ref) => (

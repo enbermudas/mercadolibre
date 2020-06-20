@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { MeliProvider } from './store';
 import './App.scss';
 
@@ -28,39 +29,84 @@ const Main = styled.main.attrs({
   }
 `;
 
-const App = () => {
+const App = ({ history }) => {
   const [query, setQuery] = useState('');
+  const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [list, setList] = useState({ categories: [], items: [] });
-  const { categories } = list;
+  const [id, setId] = useState(null);
+  const [item, setItem] = useState({});
+
+  const handleSearch = async () => {
+    setLoading(true);
+
+    history.push('/items');
+
+    setItems([]);
+    setCategories([]);
+
+    const { data } = await axios.get('/api/v1/items/', { params: { q: query } });
+
+    setItems(data.items);
+    setCategories(data.categories);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (id !== null) {
+      setLoading(true);
+
+      async function fetchItem() {
+        const { data } = await axios.get(`/api/v1/items/${id}`);
+        setItem(data);
+        setLoading(false);
+      }
+
+      fetchItem();
+      history.push(`/items/${id}`);
+    }
+  }, [id, history]);
 
   return (
-    <MeliProvider value={{ query, setQuery, list, setList, loading, setLoading }}>
-      <Router>
-        <NavBar />
+    <MeliProvider
+      value={{
+        query,
+        setQuery,
+        items,
+        setItems,
+        categories,
+        setCategories,
+        loading,
+        setLoading,
+        id,
+        setId,
+        item,
+        setItem
+      }}
+    >
+      <NavBar handleSearch={handleSearch} />
 
-        <Main>
-          {loading && <Loading />}
+      <Main>
+        {categories.length > 0 && <Categories />}
 
-          {categories.length > 0 && <Categories />}
+        {loading && <Loading />}
 
-          <Switch>
-            <Route exact path="/items">
-              <List />
-            </Route>
+        <Switch>
+          <Route exact path="/items">
+            <List />
+          </Route>
 
-            <Route path="/items/:id">
-              <Detail />
-            </Route>
+          <Route path="/items/:id">
+            <Detail />
+          </Route>
 
-            <Route path="*">
-              <List />
-            </Route>
-          </Switch>
-        </Main>
-      </Router>
+          <Route path="*">
+            <List />
+          </Route>
+        </Switch>
+      </Main>
     </MeliProvider>
   );
 };
 
-export default App;
+export default withRouter(App);

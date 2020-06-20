@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import MeliContext from '../store';
 
@@ -92,23 +91,13 @@ const Icon = styled.img.attrs({
   width: 50%;
 `;
 
-const NavBar = () => {
-  const { query, setQuery, setList, setLoading } = useContext(MeliContext);
+const NavBar = ({ handleSearch }) => {
+  const { query, setQuery } = useContext(MeliContext);
 
   const handleEnter = (e) => {
     if (e.keyCode === 13) {
       return handleSearch();
     }
-  };
-
-  const handleSearch = async () => {
-    setLoading(true);
-    setList({ categories: [], items: [] });
-
-    const { data } = await axios.get('/api/v1/items/', { params: { q: query } });
-
-    setLoading(false);
-    setList(data);
   };
 
   return (

@@ -26,8 +26,7 @@ const Chevron = styled.span`
 `;
 
 const Categories = () => {
-  const { list } = useContext(MeliContext);
-  const { categories } = list;
+  const { categories } = useContext(MeliContext);
   const lastIndex = categories.length - 1;
 
   return (
