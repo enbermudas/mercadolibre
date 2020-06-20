@@ -110,14 +110,17 @@ const Item = ({ data }) => {
 
 Item.propTypes = {
   data: PropTypes.exact({
-    address: PropTypes.string,
-    free_shipping: PropTypes.bool,
-    picture: PropTypes.string,
+    id: PropTypes.string,
+    title: PropTypes.string,
     price: PropTypes.exact({
+      amount: PropTypes.number,
       currency: PropTypes.string,
-      amount: PropTypes.number
+      decimals: PropTypes.number
     }),
-    title: PropTypes.string
+    picture: PropTypes.string,
+    condition: PropTypes.string,
+    address: PropTypes.string,
+    free_shipping: PropTypes.bool
   })
 };
 
