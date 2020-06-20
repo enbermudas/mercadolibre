@@ -24,19 +24,24 @@ export default {
       let categories = [];
 
       if (data.results.length !== 0) {
-        items = data.results.map((item) => ({
-          id: item.id,
-          title: item.title,
-          price: {
-            currency: item.currency_id,
-            amount: item.installments.amount,
-            decimals: 2
-          },
-          picture: item.thumbnail,
-          condition: item.condition,
-          free_shipping: item.shipping.free_shipping,
-          address: item.address.state_name
-        }));
+        items = data.results.map((item) => {
+          const split = item.price.toString().split('.');
+          const decimals = split.length > 1 ? split.pop() : '00';
+
+          return {
+            id: item.id,
+            title: item.title,
+            price: {
+              currency: item.currency_id,
+              amount: split[0],
+              decimals
+            },
+            picture: item.thumbnail,
+            condition: item.condition,
+            free_shipping: item.shipping.free_shipping,
+            address: item.address.state_name
+          };
+        });
       }
 
       if (data.filters.length !== 0) {
@@ -72,8 +77,12 @@ export default {
         pictures,
         condition,
         shipping,
-        sold_quantity
+        sold_quantity,
+        price
       } = itemResponse.data;
+
+      const split = price.toString().split('.');
+      const decimals = split.length > 1 ? split.pop() : '00';
 
       const item = {
         author: {
@@ -84,8 +93,8 @@ export default {
         title,
         price: {
           currency: currency_id,
-          amount: 0,
-          decimals: 2
+          amount: split[0],
+          decimals
         },
         picture: pictures[0],
         condition,
