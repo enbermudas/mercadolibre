@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import IcShipping from '../assets/ic_shipping.png';
@@ -105,6 +106,19 @@ const Item = ({ data }) => {
       </Content>
     </ListItem>
   );
+};
+
+Item.propTypes = {
+  data: PropTypes.exact({
+    address: PropTypes.string,
+    free_shipping: PropTypes.bool,
+    picture: PropTypes.string,
+    price: PropTypes.exact({
+      currency: PropTypes.string,
+      amount: PropTypes.number
+    }),
+    title: PropTypes.string
+  })
 };
 
 export default Item;
