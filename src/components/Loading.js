@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Source: https://projects.lukehaas.me/css-loaders/
-const Spinner = styled.div`
+const Spinner = styled.div.attrs({
+  'data-testid': 'loading'
+})`
   border-radius: 50%;
   width: 10em;
   height: 10em;
@@ -50,7 +52,7 @@ const Spinner = styled.div`
 `;
 
 const Loading = () => {
-  return <Spinner />;
+  return <Spinner>Cargando...</Spinner>;
 };
 
 export default Loading;
