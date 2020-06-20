@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import MeliContext from '../store';
 
@@ -31,6 +33,7 @@ const Logo = styled.img.attrs({
 })`
   height: 34px;
   margin: 15px 0 0 30px;
+  cursor: pointer;
 `;
 
 const Input = styled.input.attrs({
@@ -91,7 +94,7 @@ const Icon = styled.img.attrs({
   width: 50%;
 `;
 
-const NavBar = ({ handleSearch }) => {
+const NavBar = ({ handleSearch, history }) => {
   const { query, setQuery } = useContext(MeliContext);
 
   const handleEnter = (e) => {
@@ -103,7 +106,7 @@ const NavBar = ({ handleSearch }) => {
   return (
     <Header>
       <Nav>
-        <Logo />
+        <Logo onClick={() => history.push('/items')} />
 
         <Input
           value={query}
@@ -119,4 +122,8 @@ const NavBar = ({ handleSearch }) => {
   );
 };
 
-export default NavBar;
+NavBar.propTypes = {
+  handleSearch: PropTypes.func.isRequired
+};
+
+export default withRouter(NavBar);
