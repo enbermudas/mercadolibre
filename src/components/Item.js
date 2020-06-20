@@ -94,7 +94,7 @@ const Item = ({ data }) => {
         <TopSection>
           <div>
             <Price>
-              {price.currency} {price.amount}
+              {price.currency} {`${price.amount}.${price.decimals}`}
             </Price>
 
             {free_shipping && <Shipping />}
@@ -115,9 +115,9 @@ Item.propTypes = {
     id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.exact({
-      amount: PropTypes.number,
+      amount: PropTypes.string,
       currency: PropTypes.string,
-      decimals: PropTypes.number
+      decimals: PropTypes.string
     }),
     picture: PropTypes.string,
     condition: PropTypes.string,

@@ -166,9 +166,6 @@ const Detail = () => {
     sold_quantity > 0 && 's'
   }`;
 
-  price.amount = 1952;
-  price.decimals = 23;
-
   return (
     <Section id={id}>
       <LeftSection>
