@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import MeliContext from '../store';
 
@@ -167,29 +168,37 @@ const Detail = () => {
   }`;
 
   return (
-    <Section id={id}>
-      <LeftSection>
-        <Picture src={picture.url} alt={picture.id} width={width} height={height} />
-      </LeftSection>
-      <RightSection>
-        <Heading>
-          <Status>{status}</Status>
-          <Title>{title}</Title>
-        </Heading>
+    <>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="price" content={`${price.amount}.${price.decimals}`} />
+      </Helmet>
 
-        <Cost>
-          {price.currency} {price.amount}
-          <Decimals>{price.decimals}</Decimals>
-        </Cost>
+      <Section id={id}>
+        <LeftSection>
+          <Picture src={picture.url} alt={picture.id} width={width} height={height} />
+        </LeftSection>
+        <RightSection>
+          <Heading>
+            <Status>{status}</Status>
+            <Title>{title}</Title>
+          </Heading>
 
-        <BuyButton>Comprar</BuyButton>
-      </RightSection>
+          <Cost>
+            {price.currency} {price.amount}
+            <Decimals>{price.decimals}</Decimals>
+          </Cost>
 
-      <Description>
-        <DescHeading>Descripción del producto</DescHeading>
-        <Paragraph>{description}</Paragraph>
-      </Description>
-    </Section>
+          <BuyButton>Comprar</BuyButton>
+        </RightSection>
+
+        <Description>
+          <DescHeading>Descripción del producto</DescHeading>
+          <Paragraph>{description}</Paragraph>
+        </Description>
+      </Section>
+    </>
   );
 };
 

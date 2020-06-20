@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import { default as InfiniteList } from '@researchgate/react-intersection-list';
 import styled from 'styled-components';
 import MeliContext from '../store';
@@ -72,19 +73,28 @@ const List = () => {
     </React.Fragment>
   );
 
-  return items.length ? (
-    <InfiniteList
-      itemCount={items.length}
-      itemsRenderer={itemsRenderer}
-      renderItem={renderItem}
-    />
-  ) : (
-    !loading && (
-      <NoResults>
-        <Heading>Sin resultados...</Heading>
-        <SubHeading>¡Realiza una búsqueda!</SubHeading>
-      </NoResults>
-    )
+  return (
+    <>
+      <Helmet>
+        <title>MercadoLibre Products List</title>
+        <meta name="description" content="Search for a series of products." />
+      </Helmet>
+
+      {items.length ? (
+        <InfiniteList
+          itemCount={items.length}
+          itemsRenderer={itemsRenderer}
+          renderItem={renderItem}
+        />
+      ) : (
+        !loading && (
+          <NoResults>
+            <Heading>Sin resultados...</Heading>
+            <SubHeading>¡Realiza una búsqueda!</SubHeading>
+          </NoResults>
+        )
+      )}
+    </>
   );
 };
 
