@@ -2,9 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import MeliContext from '../store';
 
-const List = styled.ol.attrs({
-  'data-testid': 'categories-list'
-})`
+const List = styled.ol`
   max-width: 1200px;
   padding: 16px 0;
   margin: 0 auto;
@@ -33,7 +31,7 @@ const Categories = () => {
   const lastIndex = categories.length - 1;
 
   return (
-    <List>
+    <List data-testid="categories-list">
       {categories.map((category, index) => (
         <React.Fragment key={index}>
           <ListItem>{category}</ListItem>
